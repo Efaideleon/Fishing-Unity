@@ -5,7 +5,7 @@ public class WaterPhysics : MonoBehaviour
 {
     public float buoyancyForce = 2.0f;
     public float dragForce = 0.5f;
-    public float waterLevel = 0.0f;
+    public float waterLevel = 5f;
 
     private List<Rigidbody> floatingObjects = new List<Rigidbody>();
     private void OnTriggerEnter(Collider other)
@@ -17,14 +17,14 @@ public class WaterPhysics : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        Rigidbody rb = other.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            floatingObjects.Remove(rb);
-        }
-    }
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     Rigidbody rb = other.GetComponent<Rigidbody>();
+    //     if (rb != null)
+    //     {
+    //         floatingObjects.Remove(rb);
+    //     }
+    // }
 
     private void FixedUpdate()
     {
