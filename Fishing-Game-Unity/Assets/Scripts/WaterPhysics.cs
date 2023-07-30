@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class WaterPhysics : MonoBehaviour
 {
-    public float buoyancyForce = 2.0f;
-    public float dragForce = 0.5f;
-    public float waterLevel = 5f;
+    public float depthBeforeSubmerged = 1f;
+    public float displacementAmount = 3f;
+
+    void Start()
+    {
+    }
 
     private List<Rigidbody> floatingObjects = new List<Rigidbody>();
     private void OnTriggerEnter(Collider other)
@@ -31,31 +34,15 @@ public class WaterPhysics : MonoBehaviour
         foreach (Rigidbody rb in floatingObjects)
         {
             ApplyBuoyancy(rb);
-            ApplyDrag(rb);
         }
     }
 
     private void ApplyBuoyancy(Rigidbody rb)
     {
-        float objectHeight = rb.transform.position.y;
-        if (objectHeight < waterLevel)
+        if (rb.transform.position.y < transform.position.y)
         {
-            float submergedVolume = waterLevel - objectHeight;
-            float buoyancy = submergedVolume * buoyancyForce;
-            rb.AddForce(Vector3.up * buoyancy, ForceMode.Acceleration);
-        }
-    }
-
-    private void ApplyDrag(Rigidbody rb)
-    {
-        float objectHeight = rb.transform.position.y;
-        if (objectHeight < waterLevel)
-        {
-            rb.drag = dragForce;
-        }
-        else
-        {
-            rb.drag = 0;
+            float displacementMultiplier = Mathf.Clamp01(transform.position.y - rb.transform.position.y / depthBeforeSubmerged) * displacementAmount;
+            rb.AddForce(new Vector3(0f, Mathf.Abs(Physics.gravity.y) * displacementMultiplier, 0f), ForceMode.VelocityChange);
         }
     }
 }
