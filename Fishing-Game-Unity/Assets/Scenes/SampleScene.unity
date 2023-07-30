@@ -657,9 +657,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1be9d513348a459987a2876bc06689d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buoyancyForce: 3
-  dragForce: 0.5
-  waterLevel: 8
+  depthBeforeSubmerged: 1
+  displacementAmount: 3
 --- !u!114 &1740080113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -955,6 +954,36 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1405053381149119079, guid: 2e021758dd31344db95924c35931bf76,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 6.036613
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405053381149119079, guid: 2e021758dd31344db95924c35931bf76,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.3998898
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405053381149119079, guid: 2e021758dd31344db95924c35931bf76,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.7298553
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405053381149119079, guid: 2e021758dd31344db95924c35931bf76,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.52637315
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405053381149119079, guid: 2e021758dd31344db95924c35931bf76,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405053381149119079, guid: 2e021758dd31344db95924c35931bf76,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.13507237
+      objectReference: {fileID: 0}
     - target: {fileID: 1844262881766397658, guid: 2e021758dd31344db95924c35931bf76,
         type: 3}
       propertyPath: m_RootOrder
@@ -1019,6 +1048,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2680649008287641137, guid: 2e021758dd31344db95924c35931bf76,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2680649008287641137, guid: 2e021758dd31344db95924c35931bf76,
         type: 3}
@@ -1145,11 +1179,6 @@ PrefabInstance:
     - target: {fileID: 1152124527276246439, guid: fd1cf532ef7284d999a25291e8c93289,
         type: 3}
       propertyPath: m_Name
-      value: Fish
-      objectReference: {fileID: 0}
-    - target: {fileID: 1152124527276246439, guid: fd1cf532ef7284d999a25291e8c93289,
-        type: 3}
-      propertyPath: m_TagString
       value: Fish
       objectReference: {fileID: 0}
     - target: {fileID: 9043387377618492538, guid: fd1cf532ef7284d999a25291e8c93289,
