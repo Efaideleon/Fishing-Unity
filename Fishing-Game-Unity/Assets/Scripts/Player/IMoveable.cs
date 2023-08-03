@@ -4,6 +4,5 @@ using UnityEngine;
 
 public interface IMoveable
 {
-    void SetSpeed(float speed);
-    void Move(Vector2 movementVector);
+    void UpdateMoveVector(Vector2 movementVector);
 }

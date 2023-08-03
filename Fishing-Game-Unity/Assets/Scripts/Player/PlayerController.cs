@@ -15,8 +15,7 @@ public class PlayerController : MonoBehaviour
     {
         player = GetComponent<Player>();
         playerInput = GetComponent<PlayerInput>();
-        playerMovement = new PlayerMovement(GetComponent<Rigidbody>());
-        playerMovement.SetSpeed(1f);
+        playerMovement = GetComponent<PlayerMovement>();  
         movementAction = playerInput.actions["Move"];
         fishingAction = playerInput.actions["CastFishingRod"];
     }
@@ -35,19 +34,16 @@ public class PlayerController : MonoBehaviour
         fishingAction.started -= OnFishingAction;
     }
 
-    void Update()
-    {
-        playerMovement.Move(movementVector);
-    }
-
     void OnMoveAction(InputAction.CallbackContext context)
     {
         movementVector = context.ReadValue<Vector2>();
+        playerMovement.UpdateMoveVector(movementVector);
     }
 
     void ResetMoveAction(InputAction.CallbackContext context)
     {
         movementVector = Vector2.zero;
+        playerMovement.UpdateMoveVector(movementVector);
     } 
 
     void OnFishingAction(InputAction.CallbackContext context)
