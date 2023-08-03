@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class WaterPlaneMovement : MonoBehaviour
 {
-    public float speed = 1.0f;
-    public float maxDistance = 10.0f;
+    public float speed = 0.13f;
+    public float maxDistance = 0.2f;
 
     private Vector3 startPosition;
 
@@ -19,6 +19,11 @@ public class WaterPlaneMovement : MonoBehaviour
 
         float newY = startPosition.y + Mathf.PingPong(Time.time * speed, maxDistance);
         transform.position = new Vector3(startPosition.x, newY, startPosition.z);
+    }
+
+    public float GetWaterHeight()
+    {
+        return transform.position.y;
     }
 }
 
