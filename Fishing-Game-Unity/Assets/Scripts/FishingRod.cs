@@ -9,6 +9,7 @@ public class FishingRod : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 holdPositionOffset;
     private GameObject fish;
+    private WaterPlaneMovement waterPlane;
     enum FishingRodCatchState
     {
         Fish,
@@ -21,20 +22,21 @@ public class FishingRod : MonoBehaviour
         fishingRodCatchState = FishingRodCatchState.Nothing;
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
+        waterPlane = GameObject.Find("Water").GetComponent<WaterPlaneMovement>();
     }
     void Update()
     {
+        AdjustDrag();
     }
 
     private void Cast()
     {
-        Vector3 throwDistance = new Vector3(0, 7, 7);
-        rb.AddForce(throwDistance, ForceMode.Impulse);
+        Vector3 throwForce = new Vector3(0, 100, 100);
+        rb.AddForce(throwForce, ForceMode.Impulse);
     }
 
     private void Reel()
     {
-        fishingRodCatchState = FishingRodCatchState.Nothing;
         transform.position = startPosition;
         rb.isKinematic = false;
     }
@@ -43,8 +45,8 @@ public class FishingRod : MonoBehaviour
     {
         if (fishingRodCatchState == FishingRodCatchState.Fish)
         {
-            // Destroy(fish);
             fish.SetActive(false); 
+            fishingRodCatchState = FishingRodCatchState.Nothing;
         }
     }
 
@@ -81,16 +83,23 @@ public class FishingRod : MonoBehaviour
             fish = collision.gameObject;
             rb.isKinematic = true;
         }
-
-        if (collision.gameObject.tag == "Water")
-        {
-            rb.isKinematic = true;
-        }
     }
 
     void ResetKinematic()
     {
         rb.isKinematic = true;
         rb.isKinematic = false;
+    }
+
+    void AdjustDrag()
+    {
+        if (transform.position.y - 2 < waterPlane.GetWaterHeight())
+        {
+            rb.drag = 3f;
+        }
+        else
+        {
+            rb.drag = 0;
+        }
     }
 }
