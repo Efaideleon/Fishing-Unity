@@ -13,7 +13,7 @@ public class Bouyancy : MonoBehaviour
     private WaterPlaneMovement waterPlaneMovement;
 
     void Start()
-    {
+    {  
         rb = GetComponent<Rigidbody>();
         objectCollider = GetComponent<Collider>();
         width = objectCollider.bounds.size.x;
@@ -29,7 +29,7 @@ public class Bouyancy : MonoBehaviour
 
     void ApplyBuoyancy()
     {
-        if (transform.position.y - height/2 < waterPlaneMovement.GetWaterHeight()) 
+        if (IsUnderWater()) 
         {
             Vector3 buoyancyForce = fuildDensity * VolumeOfPushedOutFluid() * -Physics.gravity;
             rb.AddForce(buoyancyForce, ForceMode.Force);
@@ -38,8 +38,27 @@ public class Bouyancy : MonoBehaviour
 
     public float VolumeOfPushedOutFluid()
     {
+        return width * GetHeightSumberged() * depth;
+    }
+
+    public float SurfaceAreaFrontFacesUnderWater()
+    {
+        return depth * GetHeightSumberged();
+    }
+
+    public float SurfaceAreaSideFacesUnderWater()
+    {
+        return width * GetHeightSumberged();
+    }
+
+    private float GetHeightSumberged()
+    {
         float shipBottomPosition = transform.position.y - height/2;
-        float amountSubmerged = Mathf.Clamp(Mathf.Abs(shipBottomPosition - waterPlaneMovement.GetWaterHeight()), 0, height);
-        return (width * amountSubmerged * depth);
+        return Mathf.Clamp(Mathf.Abs(shipBottomPosition - waterPlaneMovement.GetWaterHeight()), 0, height);
+    }
+
+    public bool IsUnderWater()
+    {
+        return transform.position.y - height/2 < waterPlaneMovement.GetWaterHeight();
     }
 }
