@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour, IMoveable
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        bouyancy = GetComponent<Bouyancy>(); 
+        bouyancy = GetComponent<Bouyancy>();
     }
 
     void FixedUpdate()
