@@ -22,13 +22,18 @@ public class PlayerMovement : MonoBehaviour, IMoveable
 
     public void UpdateMoveVector(Vector2 direction)
     {
-        movementVector = Vector3.Normalize(new Vector3(direction.x, 0, direction.y));
+        /*
+        * local transform.x is forward/backward
+        * local transform.z is right/left 
+        */
+        movementVector = Vector3.Normalize(new Vector3(direction.y, 0, -direction.x));
     }
 
     private void Moving() 
     {
         Debug.Log("Speed: " + speed);
-        rb.AddForce(movementVector * speed, ForceMode.Force);
+        rb.AddRelativeForce(movementVector * speed);
+        rb.AddRelativeTorque(transform.up * (speed * .6f * -movementVector.z));
     }
 
     private void CalcuateSpeed()
@@ -40,7 +45,7 @@ public class PlayerMovement : MonoBehaviour, IMoveable
         }
         if (movementVector.x != 0 && movementVector.z != 0)
         {
-            speed = 1/bouyancy.SurfaceAreaSideFacesUnderWater() * 10200f;
+            speed = 1/bouyancy.SurfaceAreaSideFacesUnderWater() * 2200f;
             return;
         }
         if (movementVector.x != 0)
@@ -50,7 +55,7 @@ public class PlayerMovement : MonoBehaviour, IMoveable
         }
         if (movementVector.z != 0)
         {
-            speed = 1/bouyancy.SurfaceAreaSideFacesUnderWater() * 12000f;
+            speed = 1/bouyancy.SurfaceAreaSideFacesUnderWater() * 3000f;
             return;
         }
     }
