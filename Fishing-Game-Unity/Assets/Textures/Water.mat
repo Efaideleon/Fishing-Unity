@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Water
+  m_Shader: {fileID: -6465566751694194690, guid: f53a1f12fb91741ac96af30067895ca8,
+    type: 3}
+  m_Parent: {fileID: -876546973899608171, guid: f53a1f12fb91741ac96af30067895ca8,
+    type: 3}
+  m_ModifiedSerializedProperties: 2
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _ALPHAPREMULTIPLY_ON
+  - _SURFACE_TYPE_TRANSPARENT
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Main_Normal:
+        m_Texture: {fileID: 2800000, guid: 2e4f413748ff84d06bf99cc67fd4bf65, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Secondary_Normal:
+        m_Texture: {fileID: 2800000, guid: 9fa986ba449c74ce3a80f91944f4ec63, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Depth: 0.95
+    - _Displacement: 0.5
+    - _Frequency: 13.8
+    - _Metallic: 0
+    - _Normal_Strength: 0.657
+    - _QueueControl: 0
+    - _Smoothness: 1
+    - _Speed: 0.56
+    - _Strength: 1.45
+    - _offset_x: 0
+    - _offset_z: 0
+    m_Colors:
+    - _Deep_Water_Color: {r: 0.043120272, g: 0.1792452, b: 0.114235766, a: 1}
+    - _Shallow_Water_Color: {r: 0.0459238, g: 0.22641507, b: 0.1966623, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &6778263210800549338
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
