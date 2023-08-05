@@ -775,6 +775,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!54 &578282317 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 4858060856150642697, guid: fd1cf532ef7284d999a25291e8c93289,
+    type: 3}
+  m_PrefabInstance: {fileID: 9017748951674089160}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &578282320 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4038084027640102466, guid: fd1cf532ef7284d999a25291e8c93289,
+    type: 3}
+  m_PrefabInstance: {fileID: 9017748951674089160}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &598762387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1606,7 +1618,7 @@ PrefabInstance:
     - target: {fileID: 1844262881766397658, guid: 2e021758dd31344db95924c35931bf76,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -8.73
       objectReference: {fileID: 0}
     - target: {fileID: 1844262881766397658, guid: 2e021758dd31344db95924c35931bf76,
         type: 3}
@@ -1768,6 +1780,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240550345076292256, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
+        type: 3}
+      propertyPath: speed
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3240550345076292256, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
         type: 3}
