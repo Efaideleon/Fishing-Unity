@@ -1771,7 +1771,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3240550345076292256, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
         type: 3}
+      propertyPath: speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240550345076292256, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
+        type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240550345076292256, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
+        type: 3}
+      propertyPath: maxDistance
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4274557422138952620, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
@@ -1845,6 +1855,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -462981019419857548, guid: 9df87782ccbe14055b47fca5eb028751,
         type: 3}
+    - target: {fileID: 7403886862672262044, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -462981019419857548, guid: 9df87782ccbe14055b47fca5eb028751,
+        type: 3}
+    - target: {fileID: 7403886862672262044, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7403886862672262044, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
+        type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
