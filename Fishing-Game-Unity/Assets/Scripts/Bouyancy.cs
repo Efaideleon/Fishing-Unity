@@ -5,15 +5,17 @@ using UnityEngine;
 public class Bouyancy : MonoBehaviour
 {
     private readonly float fuildDensity = 45;
-    [SerializeField] Collider objectCollider;
-    [SerializeField] Rigidbody rb;
+    private Collider objectCollider;
+    private Rigidbody rb;
     private float width;
     private float height;
     private float depth; 
     private WaterPlaneMovement waterPlaneMovement;
-    [SerializeField] float numberOfFloaters;
+
     void Start()
     {  
+        rb = GetComponent<Rigidbody>();
+        objectCollider = GetComponent<Collider>();
         width = objectCollider.bounds.size.x;
         height = objectCollider.bounds.size.y;
         depth = objectCollider.bounds.size.z; 
@@ -22,7 +24,6 @@ public class Bouyancy : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.AddForceAtPosition(Physics.gravity/numberOfFloaters, transform.position, ForceMode.Acceleration);
         ApplyBuoyancy();
     }
 
@@ -31,13 +32,13 @@ public class Bouyancy : MonoBehaviour
         if (IsUnderWater()) 
         {
             Vector3 buoyancyForce = fuildDensity * VolumeOfPushedOutFluid() * -Physics.gravity;
-            rb.AddForceAtPosition(buoyancyForce, transform.position, ForceMode.Force);
+            rb.AddForce(buoyancyForce, ForceMode.Force);
         }
     }
 
     public float VolumeOfPushedOutFluid()
     {
-        return (width * GetHeightSumberged() * depth)/numberOfFloaters;
+        return width * GetHeightSumberged() * depth;
     }
 
     public float SurfaceAreaFrontFacesUnderWater()
@@ -52,14 +53,12 @@ public class Bouyancy : MonoBehaviour
 
     private float GetHeightSumberged()
     {
-        //change name from ship to object
-        float shipBottomPosition = transform.position.y;
-        return Mathf.Clamp(Mathf.Abs(shipBottomPosition - waterPlaneMovement.GetWaterMeshHeight(transform.position)), 0, height);
+        float shipBottomPosition = transform.position.y - height/2;
+        return Mathf.Clamp(Mathf.Abs(shipBottomPosition - waterPlaneMovement.GetWaterHeight()), 0, height);
     }
 
     public bool IsUnderWater()
     {
-        float waveMeshHeight = waterPlaneMovement.GetWaterMeshHeight(transform.position);
-        return transform.position.y < waveMeshHeight;
+        return transform.position.y - height/2 < waterPlaneMovement.GetWaterHeight();
     }
 }

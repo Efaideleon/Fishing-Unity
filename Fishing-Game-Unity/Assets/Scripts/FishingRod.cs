@@ -31,7 +31,7 @@ public class FishingRod : MonoBehaviour
 
     private void Cast()
     {
-        Vector3 throwForce = new(0, 10, 10);
+        Vector3 throwForce = new Vector3(0, 100, 100);
         rb.AddForce(throwForce, ForceMode.Impulse);
     }
 
