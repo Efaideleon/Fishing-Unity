@@ -4,20 +4,16 @@ public class PlayerMovement : MonoBehaviour, IMoveable
     private Rigidbody rb;
     private float speed;
     private Vector3 movementVector;
-    private Bouyancy bouyancy;
+    private readonly float torqueStrength = 7000f;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        bouyancy = GetComponent<Bouyancy>();
     }
 
     void FixedUpdate()
     {
-        if (bouyancy.IsUnderWater())
-        {
-            Moving();
-            CalcuateSpeed();
-        }
+        Moving();
+        CalcuateSpeed();
     }
 
     public void UpdateMoveVector(Vector2 direction)
@@ -31,9 +27,8 @@ public class PlayerMovement : MonoBehaviour, IMoveable
 
     private void Moving() 
     {
-        Debug.Log("Speed: " + speed);
         rb.AddRelativeForce(movementVector * speed);
-        rb.AddRelativeTorque(transform.up * (speed * .6f * -movementVector.z));
+        rb.AddRelativeTorque(transform.up * (torqueStrength * .6f * -movementVector.z));
     }
 
     private void CalcuateSpeed()
@@ -45,17 +40,17 @@ public class PlayerMovement : MonoBehaviour, IMoveable
         }
         if (movementVector.x != 0 && movementVector.z != 0)
         {
-            speed = 1/bouyancy.SurfaceAreaSideFacesUnderWater() * 2200f;
+            speed = 2200f;
             return;
         }
         if (movementVector.x != 0)
         {
-            speed = 1/bouyancy.SurfaceAreaFrontFacesUnderWater() * 12200f;
+            speed = 5200f;
             return;
         }
         if (movementVector.z != 0)
         {
-            speed = 1/bouyancy.SurfaceAreaSideFacesUnderWater() * 3000f;
+            speed = 2200f;
             return;
         }
     }
