@@ -59,6 +59,7 @@ public class Bouyancy : MonoBehaviour
 
     public bool IsUnderWater()
     {
+        Debug.Log(waterPlaneMovement.GetWaterMeshHeight(new Vector2(transform.position.x, transform.position.z))); 
         return transform.position.y - height/2 < waterPlaneMovement.GetWaterHeight();
     }
 }

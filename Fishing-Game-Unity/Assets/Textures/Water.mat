@@ -39,15 +39,16 @@ Material:
     m_Floats:
     - _Depth: 0.95
     - _Displacement: 0.5
-    - _Frequency: 13.8
+    - _Frequency: 13.3
     - _Metallic: 0
     - _Normal_Strength: 0.657
     - _QueueControl: 0
     - _Smoothness: 1
-    - _Speed: 0.56
+    - _Speed: 1.17
     - _Strength: 1.45
     - _offset_x: 0
     - _offset_z: 0
+    - _y_value: 0.11
     m_Colors:
     - _Deep_Water_Color: {r: 0.043120272, g: 0.1792452, b: 0.114235766, a: 1}
     - _Shallow_Water_Color: {r: 0.0459238, g: 0.22641507, b: 0.1966623, a: 1}
