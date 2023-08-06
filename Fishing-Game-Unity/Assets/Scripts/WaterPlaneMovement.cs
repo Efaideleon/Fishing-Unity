@@ -25,7 +25,7 @@ public class WaterPlaneMovement : MonoBehaviour
         float sqrtValue = Mathf.Sqrt(Mathf.Pow(positionOnMeshCoordinate.x, 2) + Mathf.Pow(positionOnMeshCoordinate.z, 2));
         float timesFrequency = sqrtValue * material.GetFloat("_Frequency");
         float sinValue = Mathf.Sin(Time.time * material.GetFloat("_Speed") + timesFrequency);
-        return sinValue/2;
+        return sinValue/material.GetFloat("_Wave_Height");
     }
 }
 
