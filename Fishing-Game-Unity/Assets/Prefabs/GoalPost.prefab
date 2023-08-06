@@ -149,7 +149,6 @@ GameObject:
   - component: {fileID: 2973665959696283416}
   - component: {fileID: 655466133330117492}
   - component: {fileID: 521318110132390585}
-  - component: {fileID: 3242812408125137459}
   m_Layer: 0
   m_Name: hoop
   m_TagString: Untagged
@@ -222,28 +221,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3242812408125137459
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2491073075221372382}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4424647298930988337, guid: 42274feedc3aa40c388c5d72bd2a00fd, type: 3}
 --- !u!1 &4645191032116377558
 GameObject:
   m_ObjectHideFlags: 0
