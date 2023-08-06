@@ -30,7 +30,7 @@ public class Fish : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "FishingRod")
+        if (collision.gameObject.CompareTag("FishingRod"))
         {
             fishingRod = collision.gameObject.GetComponent<FishingRod>();
             fishState = FishState.Caught;

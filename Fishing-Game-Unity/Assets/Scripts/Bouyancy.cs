@@ -53,8 +53,8 @@ public class Bouyancy : MonoBehaviour
     private float GetHeightSumberged()
     {
         //change name from ship to object
-        float shipBottomPosition = transform.position.y;
-        return Mathf.Clamp(Mathf.Abs(shipBottomPosition - waterPlaneMovement.GetWaterMeshHeight(transform.position)), 0, height);
+        float objectBottomPosition = transform.position.y;
+        return Mathf.Clamp(Mathf.Abs(objectBottomPosition - waterPlaneMovement.GetWaterMeshHeight(transform.position)), 0, height);
     }
 
     public bool IsUnderWater()
