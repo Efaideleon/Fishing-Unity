@@ -40,10 +40,10 @@ Material:
     - _Depth: 1.85
     - _Displacement: 0.5
     - _Frequency: 14.13
-    - _Metallic: 0
+    - _Metallic: 0.19
     - _Normal_Strength: 1
     - _QueueControl: 0
-    - _Smoothness: 0.672
+    - _Smoothness: 0.76
     - _Speed: 1.6
     - _Strength: 1.74
     - _offset_x: 0
@@ -51,7 +51,7 @@ Material:
     - _y_value: 0.11
     m_Colors:
     - _Deep_Water_Color: {r: 0.04312025, g: 0.17924517, b: 0.11423574, a: 0.80784315}
-    - _Shallow_Water_Color: {r: 0.13461198, g: 0.23584908, b: 0.20188831, a: 0.92156863}
+    - _Shallow_Water_Color: {r: 0.13461193, g: 0.23584905, b: 0.20188826, a: 0.9843137}
   m_BuildTextureStacks: []
 --- !u!114 &6778263210800549338
 MonoBehaviour:
