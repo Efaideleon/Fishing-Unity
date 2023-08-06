@@ -37,21 +37,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Depth: 1.27
+    - _Depth: 1.85
     - _Displacement: 0.5
-    - _Frequency: 6.34
+    - _Frequency: 14.13
     - _Metallic: 0
-    - _Normal_Strength: 0.657
+    - _Normal_Strength: 1
     - _QueueControl: 0
-    - _Smoothness: 1
-    - _Speed: 1.9
-    - _Strength: 1.82
+    - _Smoothness: 0.672
+    - _Speed: 1.6
+    - _Strength: 1.74
     - _offset_x: 0
     - _offset_z: 0
     - _y_value: 0.11
     m_Colors:
-    - _Deep_Water_Color: {r: 0.043120272, g: 0.1792452, b: 0.114235766, a: 1}
-    - _Shallow_Water_Color: {r: 0.04592377, g: 0.22641504, b: 0.19666228, a: 0.972549}
+    - _Deep_Water_Color: {r: 0.04312025, g: 0.17924517, b: 0.11423574, a: 0.80784315}
+    - _Shallow_Water_Color: {r: 0.13461198, g: 0.23584908, b: 0.20188831, a: 0.92156863}
   m_BuildTextureStacks: []
 --- !u!114 &6778263210800549338
 MonoBehaviour:
