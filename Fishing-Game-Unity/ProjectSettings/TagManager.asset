@@ -8,6 +8,7 @@ TagManager:
   - Fish
   - Water
   - FloatingObject
+  - Goal
   layers:
   - Default
   - TransparentFX
