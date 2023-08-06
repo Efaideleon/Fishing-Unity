@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4841947163930868496}
   - component: {fileID: 3347738175952643782}
   - component: {fileID: -4835197608026791778}
+  - component: {fileID: -7964785843684661630}
   m_Layer: 0
   m_Name: Fishing Rod Ball
   m_TagString: FishingRod
@@ -147,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1b6ba720c5a4de7b7e48a1678768e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  throwForce: {x: 0, y: 20, z: 10}
 --- !u!114 &-4835197608026791778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,3 +164,15 @@ MonoBehaviour:
   objectCollider: {fileID: 7155176650359921098}
   rb: {fileID: 4841947163930868496}
   numberOfFloaters: 1
+--- !u!114 &-7964785843684661630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3758391100910249757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33453f34aab3e4cb195557085a4e8ba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

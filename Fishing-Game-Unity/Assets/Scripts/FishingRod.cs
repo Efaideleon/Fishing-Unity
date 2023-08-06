@@ -10,6 +10,7 @@ public class FishingRod : MonoBehaviour
     private Vector3 holdPositionOffset;
     private GameObject fish;
     private WaterPlaneMovement waterPlane;
+    [SerializeField] Vector3 throwForce;
     enum FishingRodCatchState
     {
         Fish,
@@ -31,7 +32,6 @@ public class FishingRod : MonoBehaviour
 
     private void Cast()
     {
-        Vector3 throwForce = new(0, 10, 10);
         rb.AddForce(throwForce, ForceMode.Impulse);
     }
 
@@ -77,7 +77,7 @@ public class FishingRod : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Fish")
+        if (collision.gameObject.CompareTag("Fish"))
         {
             fishingRodCatchState = FishingRodCatchState.Fish;
             fish = collision.gameObject;
