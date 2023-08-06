@@ -43,9 +43,10 @@ Material:
     - _Metallic: 0.19
     - _Normal_Strength: 1
     - _QueueControl: 0
-    - _Smoothness: 0.76
+    - _Smoothness: 1
     - _Speed: 1.6
     - _Strength: 1.74
+    - _Tiles_Size: 2
     - _offset_x: 0
     - _offset_z: 0
     - _y_value: 0.11

@@ -358,8 +358,8 @@ ReflectionProbe:
   m_TimeSlicingMode: 0
   m_Resolution: 128
   m_UpdateFrequency: 0
-  m_BoxSize: {x: 71.38, y: 13.73, z: 124.42}
-  m_BoxOffset: {x: 0, y: 3.7024999, z: 0}
+  m_BoxSize: {x: 71.38, y: 43.36, z: 305.8}
+  m_BoxOffset: {x: 0, y: 0.3773828, z: 0}
   m_NearClip: 0.3
   m_FarClip: 1000
   m_ShadowDistance: 100
@@ -384,7 +384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158308251}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.760993, y: -1.93, z: 43.4}
+  m_LocalPosition: {x: 1.760993, y: 1.6, z: 133.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -672,7 +672,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 24
+  field of view: 38
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -697,14 +697,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.13459148, y: 0, z: 0, w: 0.9909012}
-  m_LocalPosition: {x: 0, y: 15.6, z: -40.6}
+  m_LocalRotation: {x: 0.12360149, y: 0, z: 0, w: 0.992332}
+  m_LocalPosition: {x: 0, y: 8.2, z: -30.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 15.47, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 14.2, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3771,6 +3771,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water
       objectReference: {fileID: 0}
+    - target: {fileID: 2836474892559213064, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3240550345076292256, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
         type: 3}
       propertyPath: speed
@@ -3809,7 +3814,7 @@ PrefabInstance:
     - target: {fileID: 4274557422138952620, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4274557422138952620, guid: 3973df5ca8dd1494f9fd99cbd8aa20c1,
         type: 3}
