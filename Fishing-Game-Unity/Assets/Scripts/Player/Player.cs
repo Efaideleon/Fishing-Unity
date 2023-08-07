@@ -18,6 +18,6 @@ public class Player : MonoBehaviour
 
     public void UseFishingRod()
     {
-        fishingRod.Use(transform.position);
+        fishingRod.Use(transform);
     }
 }
