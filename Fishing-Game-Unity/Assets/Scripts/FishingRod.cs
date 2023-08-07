@@ -10,7 +10,7 @@ public class FishingRod : MonoBehaviour
     private Vector3 holdPositionOffset;
     private GameObject fish;
     private WaterPlaneMovement waterPlane;
-    [SerializeField] Vector3 throwForce;
+    [SerializeField] float throwForce;
     enum FishingRodCatchState
     {
         Fish,
@@ -19,7 +19,7 @@ public class FishingRod : MonoBehaviour
     FishingRodCatchState fishingRodCatchState;
     void Start()
     {
-        holdPositionOffset = new Vector3(0, 2, 2);
+        holdPositionOffset = new Vector3(0, 2, 0);
         fishingRodCatchState = FishingRodCatchState.Nothing;
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
@@ -30,9 +30,11 @@ public class FishingRod : MonoBehaviour
         AdjustDrag();
     }
 
-    private void Cast()
+    private void Cast(Transform user)
     {
-        rb.AddForce(throwForce, ForceMode.Impulse);
+        Debug.Log(user.right);
+        Vector3 throwDirection = new(user.right.x * throwForce, throwForce, user.right.z * throwForce);
+        rb.AddForce(throwDirection, ForceMode.Impulse);
     }
 
     private void Reel()
@@ -49,10 +51,9 @@ public class FishingRod : MonoBehaviour
             fishingRodCatchState = FishingRodCatchState.Nothing;
         }
     }
-
-    public void Use(Vector3 position)
+    public void Use(Transform userTransform)
     {
-        startPosition = position + holdPositionOffset;
+        startPosition = userTransform.transform.position + holdPositionOffset;
         ResetKinematic();
         if (isCasted)
         {
@@ -62,7 +63,7 @@ public class FishingRod : MonoBehaviour
         }
         else
         {
-            Cast();
+            Cast(userTransform);
             isCasted = true;
         }   
     }
