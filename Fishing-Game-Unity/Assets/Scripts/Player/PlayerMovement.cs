@@ -31,6 +31,12 @@ public class PlayerMovement : MonoBehaviour, IMoveable
         rb.AddRelativeTorque(transform.up * (torqueStrength * .6f * -movementVector.z));
     }
 
+    public void Rotate(float angle)
+    {
+        float torqueStrength = 1000f;
+        rb.AddRelativeTorque(transform.up * (torqueStrength * .6f * angle));
+    }
+
     private void CalcuateSpeed()
     {
         if (movementVector == Vector3.zero)
