@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class FishingRod : MonoBehaviour
+public class FishingRod : MonoBehaviour 
 {
     Rigidbody rb;
     bool isCasted = false;
@@ -32,13 +29,14 @@ public class FishingRod : MonoBehaviour
 
     private void Cast(Transform user)
     {
-        Debug.Log(user.right);
+        isCasted = true;
         Vector3 throwDirection = new(user.right.x * throwForce, throwForce, user.right.z * throwForce);
         rb.AddForce(throwDirection, ForceMode.Impulse);
     }
 
     private void Reel()
     {
+        isCasted = false;
         transform.position = startPosition;
         rb.isKinematic = false;
     }
@@ -53,18 +51,15 @@ public class FishingRod : MonoBehaviour
     }
     public void Use(Transform userTransform)
     {
-        startPosition = userTransform.transform.position + holdPositionOffset;
-        ResetKinematic();
+        rb.isKinematic = false;
         if (isCasted)
         {
             DestroyFish();
             Reel();
-            isCasted = false;
         }
         else
         {
             Cast(userTransform);
-            isCasted = true;
         }   
     }
 
@@ -72,6 +67,7 @@ public class FishingRod : MonoBehaviour
     {
         if(!isCasted)
         {
+            rb.isKinematic = true;
             transform.position = position + holdPositionOffset;
         }   
     }
@@ -84,12 +80,6 @@ public class FishingRod : MonoBehaviour
             fish = collision.gameObject;
             rb.isKinematic = true;
         }
-    }
-
-    void ResetKinematic()
-    {
-        rb.isKinematic = true;
-        rb.isKinematic = false;
     }
 
     void AdjustDrag()

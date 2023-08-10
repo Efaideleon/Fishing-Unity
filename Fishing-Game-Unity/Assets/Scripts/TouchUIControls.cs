@@ -6,7 +6,6 @@ public class TouchUIControls : MonoBehaviour
     [SerializeField] private UIWheel uiWheel;
     [SerializeField] private UIPedal uiPedal;
     [SerializeField] private LaunchButton launchButton;
-    private bool moving;
     private Vector2 centerOfWheel;
     private Vector2 previousTouchPosition;
     [SerializeField] private Camera mainCamera;
@@ -35,14 +34,13 @@ public class TouchUIControls : MonoBehaviour
         {
             previousTouchPosition = finger.screenPosition;
         }
-        else if (RectTransformUtility.RectangleContainsScreenPoint(uiPedal.GetRectTransform(), finger.screenPosition))
-        {
-            uiPedal.OnPress(new Vector2(0,1));
-            moving = true;
-        }
-        else if (RectTransformUtility.RectangleContainsScreenPoint(launchButton.GetRectTransform(), finger.screenPosition))
+        else if (IsTouchingLaunchButton(finger.screenPosition))
         {
             launchButton.OnPress();
+        }
+        else if (IsTouchingPedal(finger.screenPosition))
+        {
+            uiPedal.OnPress(new Vector2(0,1));
         }
     }
 
@@ -63,10 +61,21 @@ public class TouchUIControls : MonoBehaviour
 
     public void OnEndTouch(EnhancedTounch.Finger finger, float time)
     {
-        if (moving)
+        if (IsTouchingPedal(finger.currentTouch.startScreenPosition))
         {
             uiPedal.OnPress(new Vector2(0,0));
-            moving = false;
         }
     }
+
+    private bool IsTouchingPedal(Vector2 fingerPosition)
+    {
+        return RectTransformUtility.RectangleContainsScreenPoint(uiPedal.GetRectTransform(), fingerPosition);
+    }
+
+    private bool IsTouchingLaunchButton(Vector2 fingerPosition)
+    {
+        return RectTransformUtility.RectangleContainsScreenPoint(launchButton.GetRectTransform(), fingerPosition);
+    }
+
+
 }

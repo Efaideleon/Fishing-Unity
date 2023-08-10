@@ -1,10 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class LaunchButton : MonoBehaviour
+public class LaunchButton : MonoBehaviour 
 {
-    [SerializeField] private Player player;
+    private Player player;
+    private PlayerReferenceManager playerReferenceManager;
+    private void Awake()
+    {
+        try{
+            playerReferenceManager = GameObject.Find("PlayerReferenceManager").GetComponent<PlayerReferenceManager>();
+        }
+        catch{
+            Debug.Log("PlayerReferenceManager not found");
+        }
+    }
+
+    void OnEnable()
+    {
+        playerReferenceManager.OnPlayerSet += SetPlayer;
+    }
+
+    void OnDisable()
+    {
+        playerReferenceManager.OnPlayerSet -= SetPlayer;
+    }
+
+    void SetPlayer(GameObject player)
+    {
+        this.player = player.GetComponent<Player>();
+    } 
 
     public RectTransform GetRectTransform()
     {
@@ -13,6 +35,9 @@ public class LaunchButton : MonoBehaviour
 
     public void OnPress()
     {
-        player.UseFishingRod();
+        if (player != null)
+        {
+            player.UseFishingRod();
+        }
     }
 }

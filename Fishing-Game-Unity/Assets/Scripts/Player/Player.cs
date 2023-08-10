@@ -1,14 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     private FishingRod fishingRod;
-    [SerializeField] FishingRodFactory fishingRodFactory;
+    private FishingRodFactory fishingRodFactory;
+    private PlayerReferenceManager playerReferenceManager;
+
     void Start()
     {
-       fishingRod = fishingRodFactory.CreateFishingRod(transform.position);
+
+        transform.rotation = Quaternion.Euler(0, -90, 0);
+        try{
+            playerReferenceManager = GameObject.Find("PlayerReferenceManager").GetComponent<PlayerReferenceManager>();
+            playerReferenceManager.Instance.SetPlayer(gameObject);
+        }
+        catch{
+            Debug.Log("PlayerReferenceManager not found");
+        }
+
+        fishingRodFactory = GameObject.Find("FishingRodFactory").GetComponent<FishingRodFactory>();
+        fishingRod = fishingRodFactory.CreateFishingRod(transform.position);
     }
 
     void Update()
