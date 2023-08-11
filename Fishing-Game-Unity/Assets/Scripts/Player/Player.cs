@@ -1,6 +1,6 @@
 using UnityEngine;
-
-public class Player : MonoBehaviour
+using Unity.Netcode;
+public class Player : NetworkBehaviour 
 {
     private FishingRod fishingRod;
     private FishingRodFactory fishingRodFactory;
@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-
+        if (!IsOwner) return;
         transform.rotation = Quaternion.Euler(0, -90, 0);
         try{
             playerReferenceManager = GameObject.Find("PlayerReferenceManager").GetComponent<PlayerReferenceManager>();
@@ -24,7 +24,9 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        fishingRod.Hold(transform.position);
+        // if (!IsOwner) return;
+        // if (fishingRod != null)
+        //     fishingRod.Hold(transform.position);
     }
 
     public void UseFishingRod()

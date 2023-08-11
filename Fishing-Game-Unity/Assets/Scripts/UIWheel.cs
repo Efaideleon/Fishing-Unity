@@ -29,6 +29,7 @@ public class UIWheel : MonoBehaviour
     {
         this.player = player.GetComponent<PlayerMovement>();
     }
+    
     public void Rotate(float angle)
     {
         if (player != null)

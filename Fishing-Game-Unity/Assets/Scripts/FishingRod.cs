@@ -1,5 +1,6 @@
 using UnityEngine;
-public class FishingRod : MonoBehaviour 
+using Unity.Netcode;
+public class FishingRod : NetworkBehaviour 
 {
     Rigidbody rb;
     bool isCasted = false;

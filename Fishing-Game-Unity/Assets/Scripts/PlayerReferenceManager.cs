@@ -1,8 +1,6 @@
 using UnityEngine;
-
 public class PlayerReferenceManager : MonoBehaviour
 {
-
     public PlayerReferenceManager Instance;
     private GameObject player;
 

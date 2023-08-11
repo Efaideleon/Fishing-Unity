@@ -8,14 +8,15 @@ public class PlayerMovement : NetworkBehaviour, IMoveable
     private readonly float torqueStrength = 5000f;
     void Start()
     {
+        // if(!IsOwner) return;   
         rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
+        // if(!IsOwner) return;
         CalculateSpeed();
         Moving();
-        // transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
 
         if (transform.position.y < - 2)
         {
@@ -46,7 +47,6 @@ public class PlayerMovement : NetworkBehaviour, IMoveable
 
     private void CalculateSpeed()
     {
-
         if (movementVector.x !=0)
             speed = 6000f;
         else if (movementVector.z != 0)

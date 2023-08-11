@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     private Player player;
     private PlayerInput playerInput;
@@ -18,6 +17,7 @@ public class PlayerController : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();  
         movementAction = playerInput.actions["Move"];
         fishingAction = playerInput.actions["CastFishingRod"];
+        Debug.Log("Setting controllers");
     }
 
     void OnEnable()
@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
 
     void ResetMoveAction(InputAction.CallbackContext context)
     {
+        Debug.Log(OwnerClientId + " " + NetworkManager.Singleton.LocalClientId);
         movementVector = Vector2.zero;
         playerMovement.UpdateMoveVector(movementVector);
     } 
