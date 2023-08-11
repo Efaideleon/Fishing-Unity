@@ -1,10 +1,10 @@
 using UnityEngine;
-public class UIWheel : MonoBehaviour 
+public class UIPedal : MonoBehaviour
 {
     private PlayerReferenceManager playerReferenceManager;
     private PlayerMovement player;
 
-    void Awake()
+    private void Awake()
     {
         try{
             playerReferenceManager = GameObject.Find("PlayerReferenceManager").GetComponent<PlayerReferenceManager>();
@@ -12,7 +12,6 @@ public class UIWheel : MonoBehaviour
         catch{
             Debug.Log("PlayerReferenceManager not found");
         }
-
     }
 
     void OnEnable()
@@ -29,18 +28,16 @@ public class UIWheel : MonoBehaviour
     {
         this.player = player.GetComponent<PlayerMovement>();
     }
-    
-    public void Rotate(float angle)
-    {
-        if (player != null)
-        {
-            GetComponent<RectTransform>().Rotate(0,0,angle);
-            player.Rotate(-angle);
-        }
-    } 
-
     public RectTransform GetRectTransform()
     {
         return GetComponent<RectTransform>();
+    }
+
+    public void OnPress(Vector2 movementVector)
+    {
+        if (player != null)
+        {
+            player.UpdateMoveVector(movementVector);
+        }
     }
 }

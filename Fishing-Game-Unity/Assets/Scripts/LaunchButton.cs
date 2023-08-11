@@ -1,10 +1,9 @@
 using UnityEngine;
-public class UIWheel : MonoBehaviour 
+public class LaunchButton : MonoBehaviour 
 {
+    private Player player;
     private PlayerReferenceManager playerReferenceManager;
-    private PlayerMovement player;
-
-    void Awake()
+    private void Awake()
     {
         try{
             playerReferenceManager = GameObject.Find("PlayerReferenceManager").GetComponent<PlayerReferenceManager>();
@@ -12,7 +11,6 @@ public class UIWheel : MonoBehaviour
         catch{
             Debug.Log("PlayerReferenceManager not found");
         }
-
     }
 
     void OnEnable()
@@ -27,20 +25,19 @@ public class UIWheel : MonoBehaviour
 
     void SetPlayer(GameObject player)
     {
-        this.player = player.GetComponent<PlayerMovement>();
-    }
-    
-    public void Rotate(float angle)
-    {
-        if (player != null)
-        {
-            GetComponent<RectTransform>().Rotate(0,0,angle);
-            player.Rotate(-angle);
-        }
+        this.player = player.GetComponent<Player>();
     } 
 
     public RectTransform GetRectTransform()
     {
         return GetComponent<RectTransform>();
+    }
+
+    public void OnPress()
+    {
+        if (player != null)
+        {
+            player.UseFishingRod();
+        }
     }
 }

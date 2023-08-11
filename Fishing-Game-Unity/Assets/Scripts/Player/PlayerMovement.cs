@@ -1,19 +1,27 @@
+using Unity.Netcode;
 using UnityEngine;
-public class PlayerMovement : MonoBehaviour, IMoveable
+public class PlayerMovement : NetworkBehaviour, IMoveable
 {
     private Rigidbody rb;
     private float speed;
     private Vector3 movementVector;
-    private readonly float torqueStrength = 7000f;
+    private readonly float torqueStrength = 5000f;
     void Start()
     {
+        // if(!IsOwner) return;   
         rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
+        // if(!IsOwner) return;
+        CalculateSpeed();
         Moving();
-        CalcuateSpeed();
+
+        if (transform.position.y < - 2)
+        {
+            transform.SetPositionAndRotation(new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 0));
+        }
     }
 
     public void UpdateMoveVector(Vector2 direction)
@@ -37,27 +45,16 @@ public class PlayerMovement : MonoBehaviour, IMoveable
         rb.AddRelativeTorque(transform.up * (torqueStrength * .6f * angle));
     }
 
-    private void CalcuateSpeed()
+    private void CalculateSpeed()
     {
-        if (movementVector == Vector3.zero)
-        {
-            speed = 0;
-            return;
-        }
-        if (movementVector.x != 0 && movementVector.z != 0)
-        {
-            speed = 2200f;
-            return;
-        }
-        if (movementVector.x != 0)
-        {
-            speed = 5200f;
-            return;
-        }
-        if (movementVector.z != 0)
-        {
-            speed = 2200f;
-            return;
-        }
+        if (movementVector.x !=0)
+            speed = 6000f;
+        else if (movementVector.z != 0)
+            speed = 200f;
+        else if (movementVector.x != 0 && movementVector.z != 0)
+            speed = 3000f;
+        else if (movementVector.x == 0 && movementVector.z == 0)
+            speed = 0f;
     }
+
 }

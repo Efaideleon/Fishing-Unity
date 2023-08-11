@@ -4,6 +4,8 @@ public class TouchUIControls : MonoBehaviour
 {
     [SerializeField] private EnhancedTouchManager enhancedTouchManager;
     [SerializeField] private UIWheel uiWheel;
+    [SerializeField] private UIPedal uiPedal;
+    [SerializeField] private LaunchButton launchButton;
     private Vector2 centerOfWheel;
     private Vector2 previousTouchPosition;
     [SerializeField] private Camera mainCamera;
@@ -30,13 +32,15 @@ public class TouchUIControls : MonoBehaviour
     {
         if (RectTransformUtility.RectangleContainsScreenPoint(uiWheel.GetRectTransform(), finger.screenPosition))
         {
-            Debug.Log("Touch Started on Wheel");
             previousTouchPosition = finger.screenPosition;
-            Debug.Log("Center of Wheel: " + centerOfWheel);
         }
-        else
+        else if (IsTouchingLaunchButton(finger.screenPosition))
         {
-            Debug.Log("Touch Started on Screen");
+            launchButton.OnPress();
+        }
+        else if (IsTouchingPedal(finger.screenPosition))
+        {
+            uiPedal.OnPress(new Vector2(0,1));
         }
     }
 
@@ -45,26 +49,33 @@ public class TouchUIControls : MonoBehaviour
         if (RectTransformUtility.RectangleContainsScreenPoint(uiWheel.GetRectTransform(), finger.screenPosition))
         {
             Vector2 currentTouchPosition = finger.screenPosition; 
-            Debug.Log("Touch Moved on Wheel");
 
-            Debug.Log("Previous Touch" + previousTouchPosition);
             Vector2 fromVector = previousTouchPosition - centerOfWheel;
             Vector2 toVector = currentTouchPosition - centerOfWheel;
 
             float angle = Vector2.SignedAngle(fromVector, toVector);
-            Debug.Log("Angle: " + angle);
             uiWheel.Rotate(angle);
             previousTouchPosition = currentTouchPosition;
-            Debug.Log("Current Touch" + currentTouchPosition);
         }
-        else
-        {
-            Debug.Log("Touch Moved on Screen");
-        }   
     }
 
     public void OnEndTouch(EnhancedTounch.Finger finger, float time)
     {
-        Debug.Log("Touch Ended");
+        if (IsTouchingPedal(finger.currentTouch.startScreenPosition))
+        {
+            uiPedal.OnPress(new Vector2(0,0));
+        }
     }
+
+    private bool IsTouchingPedal(Vector2 fingerPosition)
+    {
+        return RectTransformUtility.RectangleContainsScreenPoint(uiPedal.GetRectTransform(), fingerPosition);
+    }
+
+    private bool IsTouchingLaunchButton(Vector2 fingerPosition)
+    {
+        return RectTransformUtility.RectangleContainsScreenPoint(launchButton.GetRectTransform(), fingerPosition);
+    }
+
+
 }
