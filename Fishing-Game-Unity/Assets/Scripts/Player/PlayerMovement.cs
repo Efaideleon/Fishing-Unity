@@ -8,13 +8,21 @@ public class PlayerMovement : NetworkBehaviour, IMoveable
     private readonly float torqueStrength = 5000f;
     void Start()
     {
-        // if(!IsOwner) return;   
+        // if (!NetworkObject.IsOwner)
+        // {
+        //     return;
+        // }
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+        Debug.Log("Rigidbody " + rb);
     }
 
     void FixedUpdate()
     {
-        // if(!IsOwner) return;
+        // if (!NetworkObject.IsOwner)
+        // {
+        //     return;
+        // }
         CalculateSpeed();
         Moving();
 
@@ -35,6 +43,7 @@ public class PlayerMovement : NetworkBehaviour, IMoveable
 
     private void Moving() 
     {
+        Debug.Log("a Movement vector: " + movementVector + " " + NetworkManager.LocalClientId);
         rb.AddRelativeForce(movementVector * speed);
         rb.AddRelativeTorque(transform.up * (torqueStrength * .6f * -movementVector.z));
     }
@@ -54,7 +63,7 @@ public class PlayerMovement : NetworkBehaviour, IMoveable
         else if (movementVector.x != 0 && movementVector.z != 0)
             speed = 3000f;
         else if (movementVector.x == 0 && movementVector.z == 0)
-            speed = 0f;
+             speed = 0f;
     }
 
 }

@@ -42,7 +42,6 @@ public class PlayerController : NetworkBehaviour
 
     void ResetMoveAction(InputAction.CallbackContext context)
     {
-        Debug.Log(OwnerClientId + " " + NetworkManager.Singleton.LocalClientId);
         movementVector = Vector2.zero;
         playerMovement.UpdateMoveVector(movementVector);
     } 
