@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using EnhancedTounch = UnityEngine.InputSystem.EnhancedTouch;
 public class TouchUIControls : MonoBehaviour
 {
@@ -63,12 +64,14 @@ public class TouchUIControls : MonoBehaviour
     {
         if (IsTouchingPedal(finger.currentTouch.startScreenPosition))
         {
+            Debug.Log("OnEndTouch");
             uiPedal.OnPress(new Vector2(0,0));
         }
     }
 
     private bool IsTouchingPedal(Vector2 fingerPosition)
     {
+        Debug.Log("IsTouchingPedal");
         return RectTransformUtility.RectangleContainsScreenPoint(uiPedal.GetRectTransform(), fingerPosition);
     }
 
