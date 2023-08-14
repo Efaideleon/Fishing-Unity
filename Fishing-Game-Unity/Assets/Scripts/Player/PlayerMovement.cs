@@ -8,10 +8,6 @@ public class PlayerMovement : NetworkBehaviour, IMoveable
     private readonly float torqueStrength = 5000f;
     void Start()
     {
-        // if (!NetworkObject.IsOwner)
-        // {
-        //     return;
-        // }
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
         Debug.Log("Rigidbody " + rb);
@@ -19,10 +15,6 @@ public class PlayerMovement : NetworkBehaviour, IMoveable
 
     void FixedUpdate()
     {
-        // if (!NetworkObject.IsOwner)
-        // {
-        //     return;
-        // }
         CalculateSpeed();
         Moving();
 
