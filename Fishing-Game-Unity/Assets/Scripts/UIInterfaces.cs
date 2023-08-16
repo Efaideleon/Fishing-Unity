@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace UIControlsInterfaces
 {
+    public interface IUIElement
+    {
+        RectTransform RectTransform { get; }
+    }
     public interface IWheel
     {
         void Rotate(float angle);
