@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
 using UIControlsInterfaces;
-using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
-using System.Runtime.CompilerServices;
 
 public class UIWheel : MonoBehaviour, IWheel
 {
@@ -19,18 +17,18 @@ public class UIWheel : MonoBehaviour, IWheel
         OnRotate?.Invoke(-angle);
     } 
 
-    private void TouchEventHandler(EnhancedTouch.Finger finger, Action<EnhancedTouch.Finger> action )
+    private void TouchEventHandler(Vector2 fingerPosition, Action<Vector2> action )
     {
-        if (IsTouchInWheel(finger.screenPosition))
+        if (IsTouchInWheel(fingerPosition))
         {
-            action(finger);
+            action(fingerPosition);
         } 
     }
 
-    private void RotateWheelImage(EnhancedTouch.Finger finger)
+    private void RotateWheelImage(Vector2 fingerPosition)
     {
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(RectTransform, finger.screenPosition, null, out _localPos);
-        Vector2 currentTouchPosition = finger.screenPosition; 
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(RectTransform, fingerPosition, null, out _localPos);
+        Vector2 currentTouchPosition = fingerPosition; 
         Debug.Log($"center of wheel: {_centerOfWheel} + currentTouchPosition: {currentTouchPosition}");
         Vector2 fromVector = _previousTouchPosition - _centerOfWheel;
         Vector2 toVector = currentTouchPosition - _centerOfWheel;
@@ -42,16 +40,16 @@ public class UIWheel : MonoBehaviour, IWheel
 
     private void OnEnable()
     {
-        _enhancedTouchManager.OnStartTouch += finger => TouchEventHandler(finger, (finger) => _previousTouchPosition = finger.screenPosition ); 
-        _enhancedTouchManager.OnMoveTouch += finger => TouchEventHandler(finger, RotateWheelImage);
-        _enhancedTouchManager.OnEndTouch += finger => TouchEventHandler(finger, (finger) => Rotate(0));
+        _enhancedTouchManager.OnStartTouch += finger => TouchEventHandler(finger.screenPosition, (fingerPosition) => _previousTouchPosition = fingerPosition); 
+        _enhancedTouchManager.OnMoveTouch += finger => TouchEventHandler(finger.screenPosition, RotateWheelImage);
+        _enhancedTouchManager.OnEndTouch += finger => TouchEventHandler(finger.currentTouch.startScreenPosition, (finger) => Rotate(0));
     } 
 
     private void OnDisable()
     {
-        _enhancedTouchManager.OnStartTouch += finger => TouchEventHandler(finger, (finger) => _previousTouchPosition = finger.screenPosition ); 
-        _enhancedTouchManager.OnMoveTouch += finger => TouchEventHandler(finger, RotateWheelImage);
-        _enhancedTouchManager.OnEndTouch += finger => TouchEventHandler(finger, (finger) => Rotate(0));
+        _enhancedTouchManager.OnStartTouch -= finger => TouchEventHandler(finger.screenPosition, (fingerPosition) => _previousTouchPosition = fingerPosition); 
+        _enhancedTouchManager.OnMoveTouch -= finger => TouchEventHandler(finger.screenPosition, RotateWheelImage);
+        _enhancedTouchManager.OnEndTouch -= finger => TouchEventHandler(finger.currentTouch.startScreenPosition, (finger) => Rotate(0));
     }
 
     private bool IsTouchInWheel(Vector2 touchPosition) => RectTransformUtility.RectangleContainsScreenPoint(RectTransform, touchPosition);
