@@ -1,43 +1,32 @@
+using UIControlsInterfaces;
 using UnityEngine;
-public class LaunchButton : MonoBehaviour 
+public class LaunchButton : MonoBehaviour, ILaunchButton 
 {
-    private Player player;
-    private PlayerReferenceManager playerReferenceManager;
-    private void Awake()
+    [SerializeField] private EnhancedTouchManager _enhancedTouchManager;
+    public RectTransform RectTransform => GetComponent<RectTransform>();
+    public void Launch()
     {
-        try{
-            playerReferenceManager = GameObject.Find("PlayerReferenceManager").GetComponent<PlayerReferenceManager>();
-        }
-        catch{
-            Debug.Log("PlayerReferenceManager not found");
-        }
-    }
-
-    void OnEnable()
-    {
-        playerReferenceManager.OnPlayerSet += SetPlayer;
-    }
-
-    void OnDisable()
-    {
-        playerReferenceManager.OnPlayerSet -= SetPlayer;
-    }
-
-    void SetPlayer(GameObject player)
-    {
-        this.player = player.GetComponent<Player>();
+        Debug.Log("Launch");
     } 
 
-    public RectTransform GetRectTransform()
+    private void OnStartTouchHandler(Vector2 fingerPosition)
     {
-        return GetComponent<RectTransform>();
+        if (IsTouchingLaunchButton(fingerPosition))
+            Launch();
     }
 
-    public void OnPress()
+    public void OnEnable()
     {
-        if (player != null)
-        {
-            player.UseFishingRod();
-        }
+        _enhancedTouchManager.OnStartTouch += context => OnStartTouchHandler(context.screenPosition);
+    }
+
+    public void OnDisable()
+    {
+        _enhancedTouchManager.OnStartTouch -= context => OnStartTouchHandler(context.screenPosition);
+    }
+
+    private bool IsTouchingLaunchButton(Vector2 fingerPosition)
+    {
+        return RectTransformUtility.RectangleContainsScreenPoint(RectTransform, fingerPosition);
     }
 }
