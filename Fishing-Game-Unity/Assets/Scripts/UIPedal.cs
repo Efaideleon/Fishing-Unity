@@ -1,43 +1,45 @@
+using System;
+using UIControlsInterfaces;
 using UnityEngine;
-public class UIPedal : MonoBehaviour
+
+public class UIPedal : MonoBehaviour, IPedal
 {
-    private PlayerReferenceManager playerReferenceManager;
-    private PlayerMovement player;
+    [SerializeField] private EnhancedTouchManager _enhancedTouchManager;
+    public RectTransform RectTransform => GetComponent<RectTransform>(); 
+    public event Action<Vector2> OnPress;
+    public void Accelerate(Vector2 direction) => OnPress?.Invoke(direction);
 
-    private void Awake()
+    public void OnStartTouchHandler(Vector2 fingerPosition)
     {
-        try{
-            playerReferenceManager = GameObject.Find("PlayerReferenceManager").GetComponent<PlayerReferenceManager>();
-        }
-        catch{
-            Debug.Log("PlayerReferenceManager not found");
-        }
-    }
-
-    void OnEnable()
-    {
-        playerReferenceManager.OnPlayerSet += SetPlayer;
-    }
-
-    void OnDisable()
-    {
-        playerReferenceManager.OnPlayerSet -= SetPlayer;
-    }
-
-    void SetPlayer(GameObject player)
-    {
-        this.player = player.GetComponent<PlayerMovement>();
-    }
-    public RectTransform GetRectTransform()
-    {
-        return GetComponent<RectTransform>();
-    }
-
-    public void OnPress(Vector2 movementVector)
-    {
-        if (player != null)
+        if (IsTouchingPedal(fingerPosition))
         {
-            player.UpdateMoveVector(movementVector);
+            Accelerate(Vector2.up);
         }
     }
+
+    public void OnEndTouchHandler(Vector2 fingerPosition)
+    {
+        if (IsTouchingPedal(fingerPosition))
+        {
+            Accelerate(Vector2.zero);
+        }
+    }
+
+    public void OnEnable()
+    {
+        _enhancedTouchManager.OnStartTouch += context => OnStartTouchHandler(context.screenPosition);
+        _enhancedTouchManager.OnEndTouch += context => OnEndTouchHandler(context.currentTouch.screenPosition);
+    }
+
+    public void OnDisable()
+    {
+        _enhancedTouchManager.OnStartTouch -= context => OnStartTouchHandler(context.screenPosition);
+        _enhancedTouchManager.OnEndTouch -= context => OnEndTouchHandler(context.currentTouch.screenPosition);
+    }
+
+    private bool IsTouchingPedal(Vector2 fingerPosition)
+    {
+        return RectTransformUtility.RectangleContainsScreenPoint(RectTransform, fingerPosition);
+    }
+
 }

@@ -23,7 +23,7 @@ public class SmoothCameraFollow : MonoBehaviour
         playerReferenceManager.OnPlayerSet -= SetTarget;
     }
 
-    void SetTarget(GameObject player)
+    void SetTarget(PlayerBase player)
     {
         target = player.transform;
         //convert the position of the camera in the world to the position of the camera relative to the player

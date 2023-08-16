@@ -2,9 +2,17 @@ using UnityEngine;
 public class PlayerReferenceManager : MonoBehaviour
 {
     public PlayerReferenceManager Instance;
-    private GameObject player;
-
-    public delegate void PlayerSet(GameObject player);
+    private PlayerBase _player;
+    public PlayerBase Player 
+    {
+        get { return _player; }
+        set 
+        {
+            _player = value;
+            OnPlayerSet?.Invoke(value);
+        }
+    }
+    public delegate void PlayerSet(PlayerBase player);
     public event PlayerSet OnPlayerSet;
     void Awake()
     {
@@ -17,14 +25,5 @@ public class PlayerReferenceManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    public GameObject GetPlayer()
-    {
-        return player;
-    }
-    public void SetPlayer(GameObject player)
-    {
-        this.player = player;
-        OnPlayerSet?.Invoke(player);
     }
 }

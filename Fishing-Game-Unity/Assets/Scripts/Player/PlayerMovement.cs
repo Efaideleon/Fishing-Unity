@@ -36,7 +36,6 @@ public class PlayerMovement : NetworkBehaviour, IMoveable
     private void Moving() 
     {
         Debug.Log("a Movement vector: " + movementVector + " " + NetworkManager.LocalClientId);
-        rb.AddRelativeForce(movementVector * speed);
         rb.AddRelativeTorque(transform.up * (torqueStrength * .6f * -movementVector.z));
     }
 
