@@ -3,11 +3,11 @@ using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
 public class EnhancedTouchManager : MonoBehaviour
 {
-    public delegate void StartTouchEvent(EnhancedTouch.Finger finger, float time);
+    public delegate void StartTouchEvent(EnhancedTouch.Finger finger);
     public event StartTouchEvent OnStartTouch;
-    public delegate void EndTouchEvent(EnhancedTouch.Finger finger, float time);
+    public delegate void EndTouchEvent(EnhancedTouch.Finger finger);
     public event EndTouchEvent OnEndTouch;
-    public delegate void MoveTouchEvent(EnhancedTouch.Finger finger, float time);
+    public delegate void MoveTouchEvent(EnhancedTouch.Finger finger);
     public event MoveTouchEvent OnMoveTouch;
     private void OnEnable()
     {
@@ -30,16 +30,16 @@ public class EnhancedTouchManager : MonoBehaviour
     private void FingerDown(EnhancedTouch.Finger finger)
     {
         
-        OnStartTouch?.Invoke(finger, (float)finger.currentTouch.startTime);
+        OnStartTouch?.Invoke(finger);
     }
 
     private void FingerUp(EnhancedTouch.Finger finger)
     {
-        OnEndTouch?.Invoke(finger, (float)finger.currentTouch.time);
+        OnEndTouch?.Invoke(finger);
     }    
 
     private void FingerMove(EnhancedTouch.Finger finger)
     {
-        OnMoveTouch?.Invoke(finger, (float)finger.currentTouch.time);
+        OnMoveTouch?.Invoke(finger);
     }
 }
