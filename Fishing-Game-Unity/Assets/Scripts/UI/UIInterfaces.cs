@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace UIControlsInterfaces
@@ -13,7 +11,7 @@ namespace UIControlsInterfaces
         void Rotate(float angle);
     }   
 
-    public interface IPedal
+    public interface IAccelerateButton
     {
         void Accelerate(Vector2 direction);
     }
