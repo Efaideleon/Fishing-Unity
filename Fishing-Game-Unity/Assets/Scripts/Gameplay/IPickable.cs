@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IMoveable
+public interface IPickable 
 {
-    void UpdateMoveVector(Vector2 movementVector);
+    void Pick();
+    void Drop();
 }

@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8782223209364275591}
   m_Layer: 0
   m_Name: Fishing Rod Ball
-  m_TagString: FishingRod
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,7 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2169859613167807308
 MeshFilter:
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1b6ba720c5a4de7b7e48a1678768e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwForce: 20
+  _throwForce: 20
 --- !u!114 &-4835197608026791778
 MonoBehaviour:
   m_ObjectHideFlags: 0

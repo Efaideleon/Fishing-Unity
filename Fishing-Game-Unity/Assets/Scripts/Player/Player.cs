@@ -1,8 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using FindObjectsInScene;
-using Unity.VisualScripting;
-using System;
 
 public class Player : PlayerBase
 {
@@ -10,7 +7,7 @@ public class Player : PlayerBase
     private Vector3 _movementVector;
     private float _angle;
     private const float TORQUE_STRENGTH = 1500f;
-
+    private BasketBallPicker _basketBallPicker;
     void OnEnable()
     {
         SubscribeToEvents();
@@ -27,6 +24,8 @@ public class Player : PlayerBase
         transform.rotation = Quaternion.Euler(0, -90, 0);
         _rb = GetComponent<Rigidbody>(); 
         FindInScene.PlayerReferenceManager.Player = this;
+        _basketBallPicker = GetComponentInChildren<BasketBallPicker>();
+
     }
 
     void FixedUpdate()
@@ -38,6 +37,13 @@ public class Player : PlayerBase
     public override void Turn(float angle) => _angle = angle;
     public override void Move(Vector2 direction) => _movementVector = new Vector3(direction.y, 0, -direction.x);
 
+    public void ThrowBall()
+    {
+        if (_basketBallPicker.BasketBall == null) return;
+        _basketBallPicker.BasketBall.Throw(transform.right);
+        _basketBallPicker.BasketBall = null;
+    }
+
     private void SubscribeToEvents()
     {
         FindInScene.GameInput.OnMoved += context => Move(context.ReadValue<Vector2>());
@@ -46,6 +52,8 @@ public class Player : PlayerBase
         FindInScene.GameInput.OnMovementCanceled += context => Turn(0);
         FindInScene.Wheel.OnRotate += Turn;
         FindInScene.Pedal.OnPress += Move; 
+        FindInScene.BackButton.OnBack += Move;
+        FindInScene.LaunchButton.OnLaunch += ThrowBall;
     }
 
     private void UnsubscribeFromEvent()
@@ -56,5 +64,7 @@ public class Player : PlayerBase
         FindInScene.GameInput.OnMovementCanceled -= context => Turn(0);
         FindInScene.Wheel.OnRotate -= Turn;
         FindInScene.Pedal.OnPress -= Move;
+        FindInScene.BackButton.OnBack -= Move;
+        FindInScene.LaunchButton.OnLaunch -= ThrowBall;
     }
 }
