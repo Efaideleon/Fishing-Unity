@@ -16,9 +16,12 @@ GameObject:
   - component: {fileID: 3347738175952643782}
   - component: {fileID: -4835197608026791778}
   - component: {fileID: -7964785843684661630}
+  - component: {fileID: -6248412493310132838}
   - component: {fileID: 8782223209364275591}
+  - component: {fileID: 3451299556212479520}
+  - component: {fileID: -1463813439124654906}
   m_Layer: 0
-  m_Name: Fishing Rod Ball
+  m_Name: BasketBall
   m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1b6ba720c5a4de7b7e48a1678768e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _throwForce: 20
 --- !u!114 &-4835197608026791778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +179,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33453f34aab3e4cb195557085a4e8ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6248412493310132838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3758391100910249757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1afd883b7bbb14538aff6cc4653a306d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8782223209364275591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,3 +210,45 @@ MonoBehaviour:
   SceneMigrationSynchronization: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &3451299556212479520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3758391100910249757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
+--- !u!114 &-1463813439124654906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3758391100910249757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

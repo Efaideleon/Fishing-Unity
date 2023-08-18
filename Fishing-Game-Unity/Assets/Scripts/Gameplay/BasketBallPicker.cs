@@ -2,16 +2,27 @@ using UnityEngine;
 
 public class BasketBallPicker : MonoBehaviour
 {
-    [HideInInspector]
-    public BasketBall BasketBall { get; set; }
+    // [HideInInspector]
+    public BasketBall BasketBall; 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            BasketBall = collision.gameObject.GetComponent<BasketBall>();
-            BasketBall.gameObject.transform.SetParent(transform);
-            BasketBall.gameObject.transform.localPosition = new Vector3(0, 2f, 0);
-            BasketBall.gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            Pick(collision);
         }
+    }
+
+    private void Pick(Collision collision)
+    {
+        Debug.Log("Has picked up the ball");
+        BasketBall = collision.gameObject.GetComponent<BasketBall>();
+        BasketBall.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        BasketBall.gameObject.GetComponent<Rigidbody>().isKinematic = true; 
+        BasketBall.gameObject.SetActive(false);
+    }
+
+    public void Drop()
+    {
+        BasketBall = null;
     }
 }

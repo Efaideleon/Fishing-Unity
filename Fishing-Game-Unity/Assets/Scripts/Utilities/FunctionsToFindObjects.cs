@@ -13,7 +13,7 @@ namespace FindObjectsInScene
         public static UIPedal Pedal => FindObjectComponent<UIPedal>("Pedal");
         public static UIBackButton BackButton => FindObjectComponent<UIBackButton>("BackButton");
         public static UILaunchButton LaunchButton => FindObjectComponent<UILaunchButton>("LaunchButton");
-
+        public static WaterPlaneMovement WaterPlaneMovement => FindObjectComponent<WaterPlaneMovement>("Water");
         private static T FindObjectComponent<T> (string name) where T : Component
         {
             if (!GameObject.Find(name).TryGetComponent(out T component))
