@@ -1,8 +1,8 @@
 using UnityEngine;
 public class PlayerReferenceManager : MonoBehaviour
 {
-    public PlayerReferenceManager Instance;
-    private PlayerBase _player;
+    [HideInInspector] public PlayerReferenceManager Instance;
+    private static PlayerBase _player;
     public PlayerBase Player 
     {
         get { return _player; }

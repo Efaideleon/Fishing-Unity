@@ -20,12 +20,15 @@ public class Player : PlayerBase
 
     void Start()
     {
-        if (!IsOwner) return;
+        if (!IsOwner) transform.position = new Vector3(30,0, 10);
         transform.rotation = Quaternion.Euler(0, -90, 0);
         _rb = GetComponent<Rigidbody>(); 
-        FindInScene.PlayerReferenceManager.Player = this;
         _basketBallPicker = GetComponentInChildren<BasketBallPicker>();
 
+        if(IsLocalPlayer && FindInScene.PlayerReferenceManager.Player == null)
+        {
+            FindInScene.PlayerReferenceManager.Player = this;
+        }
     }
 
     void FixedUpdate()
@@ -40,16 +43,29 @@ public class Player : PlayerBase
     public void ThrowBall()
     {
         if (_basketBallPicker.BasketBall == null) return;
+        Vector3 ballStartingPositionOffset = new(0, 2, 0);
+        _basketBallPicker.BasketBall.SetWorldPosition(transform.position + ballStartingPositionOffset);
         _basketBallPicker.BasketBall.Throw(transform.right);
-        _basketBallPicker.BasketBall = null;
+        _basketBallPicker.Drop();
+    }
+
+    private void OnMove(Vector2 direction)
+    {
+        Move(direction);
+        Turn(-_movementVector.z);
+    }
+
+    private void OnMovementCancel()
+    {
+        Move(Vector2.zero);
+        Turn(0);
     }
 
     private void SubscribeToEvents()
     {
-        FindInScene.GameInput.OnMoved += context => Move(context.ReadValue<Vector2>());
-        FindInScene.GameInput.OnMoved += context => Turn(-_movementVector.z);
-        FindInScene.GameInput.OnMovementCanceled += context => Move(Vector2.zero);
-        FindInScene.GameInput.OnMovementCanceled += context => Turn(0);
+        FindInScene.GameInput.OnMoved += context => OnMove(context.ReadValue<Vector2>());
+        FindInScene.GameInput.OnMovementCanceled += context => OnMovementCancel();
+        FindInScene.GameInput.OnFishing += context => ThrowBall();
         FindInScene.Wheel.OnRotate += Turn;
         FindInScene.Pedal.OnPress += Move; 
         FindInScene.BackButton.OnBack += Move;
@@ -58,10 +74,9 @@ public class Player : PlayerBase
 
     private void UnsubscribeFromEvent()
     {
-        FindInScene.GameInput.OnMoved -= context => Move(context.ReadValue<Vector2>());
-        FindInScene.GameInput.OnMoved -= context => Turn(-_movementVector.z);
-        FindInScene.GameInput.OnMovementCanceled -= context => Move(Vector2.zero);
-        FindInScene.GameInput.OnMovementCanceled -= context => Turn(0);
+        FindInScene.GameInput.OnMoved -= context => OnMove(context.ReadValue<Vector2>());
+        FindInScene.GameInput.OnMovementCanceled -= context => OnMovementCancel();
+        FindInScene.GameInput.OnFishing -= context => ThrowBall();
         FindInScene.Wheel.OnRotate -= Turn;
         FindInScene.Pedal.OnPress -= Move;
         FindInScene.BackButton.OnBack -= Move;

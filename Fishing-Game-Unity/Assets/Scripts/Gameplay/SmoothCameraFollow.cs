@@ -25,6 +25,7 @@ public class SmoothCameraFollow : MonoBehaviour
 
     void SetTarget(PlayerBase player)
     {
+        Debug.Log("setting target in camera follow");
         target = player.transform;
         //convert the position of the camera in the world to the position of the camera relative to the player
         offset = target.InverseTransformPoint(transform.position);
