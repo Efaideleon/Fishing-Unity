@@ -15,8 +15,6 @@ public class UIBackButtonTouchManager : UITouchManagerBase
             _backButton.Accelerate(Vector2.zero);
     }
 
-    protected override void OnMoveTouchHandler(Finger finger){}
-
     protected override void OnStartTouchHandler(Finger finger)
     {
         if (_backButton.IsTouchingElement(finger.screenPosition))
