@@ -1,3 +1,4 @@
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 namespace FindObjectsInScene
@@ -14,6 +15,7 @@ namespace FindObjectsInScene
         public static UIBackButton BackButton => FindObjectComponent<UIBackButton>("BackButton");
         public static UILaunchButton LaunchButton => FindObjectComponent<UILaunchButton>("LaunchButton");
         public static WaterPlaneMovement WaterPlaneMovement => FindObjectComponent<WaterPlaneMovement>("Water");
+        public static BasketBall BasketBall => FindObjectComponent<BasketBall>("BasketBall");
         private static T FindObjectComponent<T> (string name) where T : Component
         {
             if (!GameObject.Find(name).TryGetComponent(out T component))

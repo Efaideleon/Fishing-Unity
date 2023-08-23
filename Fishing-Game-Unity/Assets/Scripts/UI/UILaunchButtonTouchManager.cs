@@ -14,6 +14,4 @@ public class UILaunchButtonTouchManager : UITouchManagerBase
         if (_launchButton.IsTouchingElement(finger.screenPosition))
             _launchButton.Launch();
     }
-    protected override void OnMoveTouchHandler(Finger finger) {}
-    protected override void OnEndTouchHandler(Finger finger) {}
 }

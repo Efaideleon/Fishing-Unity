@@ -1,21 +1,23 @@
 using UnityEngine;
-
-public class BasketBallPicker : MonoBehaviour
+using Unity.Netcode;
+public class BasketBallPicker : MonoBehaviour  
 {
     // [HideInInspector]
     public BasketBall BasketBall; 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ball"))
+        if (collision.gameObject.TryGetComponent<BasketBall>(out var component))
         {
-            Pick(collision);
+            Pick(component);
         }
     }
 
-    private void Pick(Collision collision)
+    private void Pick(BasketBall component)
     {
         Debug.Log("Has picked up the ball");
-        BasketBall = collision.gameObject.GetComponent<BasketBall>();
+        if (!NetworkManager.Singleton.IsServer) return;
+        Debug.Log("The server has picked up the ball");
+        BasketBall = component; 
         BasketBall.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         BasketBall.gameObject.GetComponent<Rigidbody>().isKinematic = true; 
         BasketBall.gameObject.SetActive(false);

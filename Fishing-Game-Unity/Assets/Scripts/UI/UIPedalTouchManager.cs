@@ -17,7 +17,6 @@ public class UIPedalTouchManager :  UITouchManagerBase
             _uiPedal.Accelerate(Vector2.up);
         }
     }
-    protected override void OnMoveTouchHandler(Finger finger){}
 
     protected override void OnEndTouchHandler(Finger finger)
     {
