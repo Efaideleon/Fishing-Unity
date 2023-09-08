@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FishingRodGameplay : MonoBehaviour
+public class BasketBallBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
