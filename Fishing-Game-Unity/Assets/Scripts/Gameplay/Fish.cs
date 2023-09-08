@@ -10,7 +10,7 @@ public class Fish : MonoBehaviour
         Caught,
         Escaped
     }
-    private BasketBall fishingRod;
+    private ThrowItem fishingRod;
     FishState fishState;
     Rigidbody rb;
     void Start()
@@ -32,7 +32,7 @@ public class Fish : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("FishingRod"))
         {
-            fishingRod = collision.gameObject.GetComponent<BasketBall>();
+            fishingRod = collision.gameObject.GetComponent<ThrowItem>();
             fishState = FishState.Caught;
             rb.isKinematic = true;
             rb.useGravity = false;

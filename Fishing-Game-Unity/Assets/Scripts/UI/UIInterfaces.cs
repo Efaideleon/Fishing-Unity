@@ -13,7 +13,7 @@ namespace UIControlsInterfaces
 
     public interface IAccelerateButton
     {
-        void Accelerate(Vector2 direction);
+        void Accelerate(float speed);
     }
 
     public interface ILaunchButton

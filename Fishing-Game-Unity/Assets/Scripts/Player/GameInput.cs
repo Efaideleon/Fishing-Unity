@@ -8,9 +8,9 @@ public class GameInput : MonoBehaviour
     private InputAction _fishingAction;
 
     public delegate void EventHandler(InputAction.CallbackContext context); 
-    public event EventHandler OnMoved;
-    public event EventHandler OnMovementCanceled;
-    public event EventHandler OnFishing;
+    public event EventHandler Moving;
+    public event EventHandler MovementCanceled;
+    public event EventHandler Throwing;
     void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -22,28 +22,28 @@ public class GameInput : MonoBehaviour
     {
         _movementAction.performed += OnMoveAction;    
         _movementAction.canceled += OnResetMoveAction; 
-        _fishingAction.started += OnFishingAction;
+        _fishingAction.started += OnThrowingAction;
     }
 
     void OnDisable()
     {
         _movementAction.performed -= OnMoveAction;    
         _movementAction.canceled -= OnResetMoveAction;
-        _fishingAction.started -= OnFishingAction;
+        _fishingAction.started -= OnThrowingAction;
     }
 
     void OnMoveAction(InputAction.CallbackContext context)
     {   
-        OnMoved?.Invoke(context);
+        Moving?.Invoke(context);
     }
 
     void OnResetMoveAction(InputAction.CallbackContext context)
     {
-        OnMovementCanceled?.Invoke(context);
+        MovementCanceled?.Invoke(context);
     } 
 
-    void OnFishingAction(InputAction.CallbackContext context)
+    void OnThrowingAction(InputAction.CallbackContext context)
     {
-        OnFishing?.Invoke(context);
+        Throwing?.Invoke(context);
     }
 }

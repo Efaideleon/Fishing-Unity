@@ -19,6 +19,10 @@ public class UIWheelTouchManager : UITouchManagerBase
     {
         if (_uiWheel.IsTouchingElement(finger.screenPosition))
             _uiWheel.Rotate(_uiElementRotator.CalculateRelativeRotationAngle(finger.screenPosition));
+        else
+        {
+            _uiWheel.Rotate(0);
+        }
     }
     protected override void OnEndTouchHandler(Finger finger)
     {
