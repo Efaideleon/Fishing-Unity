@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class UIBackButton : UIElementBase, IAccelerateButton
 {
-    public event Action<Vector2> OnBack;
-    public void Accelerate(Vector2 direction)
+    public event Action<float> Backing;
+    public void Accelerate(float speed)
     {
-        OnBack?.Invoke(direction);
+        Backing?.Invoke(speed);
     }
 }

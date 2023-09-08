@@ -5,18 +5,19 @@ using Unity.Netcode;
 public class Player : PlayerBase
 {
     private Rigidbody _rb;
-    private Vector3 _movementVector;
+    private float _speed; 
     private float _angle;
-    private const float TORQUE_STRENGTH = 1500f;
-    private BasketBall _basketBall; 
+    private const float TORQUE_STRENGTH = 2000f;
+    private ThrowItem _throwItem; 
     public NetworkVariable<bool> HasBall = new(false);
-
+    private Vector3 _localForwardDirection;
 
     public override void OnNetworkSpawn()
     {
+        _localForwardDirection = Vector3.right;
         transform.rotation = Quaternion.Euler(0, -90, 0);
         _rb = GetComponent<Rigidbody>(); 
-        _basketBall = FindInScene.BasketBall;
+        _throwItem = FindInScene.BasketBall;
         if(IsLocalPlayer && FindInScene.PlayerReferenceManager.Player == null)
         {
             FindInScene.PlayerReferenceManager.Player = this;
@@ -26,12 +27,9 @@ public class Player : PlayerBase
 
     void FixedUpdate()
     {
-        _rb.AddRelativeForce(_movementVector * CalculateSpeed(_movementVector));
+        _rb.AddRelativeForce(_localForwardDirection * CalculateForce(_speed));
         _rb.AddRelativeTorque(transform.up * (TORQUE_STRENGTH * _angle));
     }
-
-    public override void Turn(float angle) => _angle = angle;
-    public override void Move(Vector2 direction) => _movementVector = new Vector3(direction.y, 0, -direction.x);
 
     private void OnHasBallValueChanged(bool oldValue, bool newValue)
     {
@@ -44,14 +42,15 @@ public class Player : PlayerBase
 
     [ClientRpc]
     public void SetHasBallClientRpc(){
-        _basketBall.SetInactive();
+        _throwItem.SetInactive();
     }
 
     [ClientRpc]
     private void ThrowBallClientRpc(ThrowBallData ballData)
     {
-        _basketBall.gameObject.SetActive(true); 
-        _basketBall.Throw(ballData.Position, ballData.Direction);
+        _throwItem.gameObject.SetActive(true); 
+        _throwItem.OwnerId = ballData.OwnerId;
+        _throwItem.Throw(ballData.Position, ballData.Direction);
     }
 
     [ServerRpc]
@@ -63,7 +62,8 @@ public class Player : PlayerBase
         var ballData = new ThrowBallData
         {
             Position = client.PlayerObject.transform.position,
-            Direction = client.PlayerObject.transform.right
+            Direction = client.PlayerObject.transform.right,
+            OwnerId = client.ClientId
         };
         ThrowBallClientRpc(ballData);
     }
@@ -72,13 +72,17 @@ public class Player : PlayerBase
     {
         public Vector3 Position;
         public Vector3 Direction;
-
+        public ulong OwnerId;
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
             serializer.SerializeValue(ref Position);
             serializer.SerializeValue(ref Direction);
+            serializer.SerializeValue(ref OwnerId);
         }
     }
+
+    public override void SetAngle(float angle) => _angle = angle;
+    public override void SetSpeed(float speed) => _speed = speed;
 
     public void ThrowBall()
     {
@@ -86,16 +90,16 @@ public class Player : PlayerBase
         ThrowBallServerRpc();
     }
 
-    private void OnMove(Vector2 direction)
+    private void Move(Vector2 movementDirection)
     {
-        Move(direction);
-        Turn(-_movementVector.z);
+        SetAngle(movementDirection.x);
+        SetSpeed(movementDirection.y);
     }
 
-    private void OnMovementCancel()
+    private void CancelMovement()
     {
-        Move(Vector2.zero);
-        Turn(0);
+        SetAngle(0);
+        SetSpeed(0);
     }
 
     void OnEnable()
@@ -109,23 +113,23 @@ public class Player : PlayerBase
     }
     private void SubscribeToEvents()
     {
-        FindInScene.GameInput.OnMoved += context => OnMove(context.ReadValue<Vector2>());
-        FindInScene.GameInput.OnMovementCanceled += context => OnMovementCancel();
-        FindInScene.GameInput.OnFishing += context => ThrowBall();
-        FindInScene.Wheel.OnRotate += Turn;
-        FindInScene.Pedal.OnPress += Move; 
-        FindInScene.BackButton.OnBack += Move;
-        FindInScene.LaunchButton.OnLaunch += ThrowBall;
+        FindInScene.GameInput.Moving += context => Move(context.ReadValue<Vector2>());
+        FindInScene.GameInput.MovementCanceled += context => CancelMovement();
+        FindInScene.GameInput.Throwing += context => ThrowBall();
+        FindInScene.Wheel.Rotating += SetAngle;
+        FindInScene.Pedal.Pressing += SetSpeed; 
+        FindInScene.BackButton.Backing += SetSpeed;
+        FindInScene.LaunchButton.Launched += ThrowBall;
     }
 
     private void UnsubscribeFromEvent()
     {
-        FindInScene.GameInput.OnMoved -= context => OnMove(context.ReadValue<Vector2>());
-        FindInScene.GameInput.OnMovementCanceled -= context => OnMovementCancel();
-        FindInScene.GameInput.OnFishing -= context => ThrowBall();
-        FindInScene.Wheel.OnRotate -= Turn;
-        FindInScene.Pedal.OnPress -= Move;
-        FindInScene.BackButton.OnBack -= Move;
-        FindInScene.LaunchButton.OnLaunch -= ThrowBall;
+        FindInScene.GameInput.Moving -= context => Move(context.ReadValue<Vector2>());
+        FindInScene.GameInput.MovementCanceled -= context => CancelMovement();
+        FindInScene.GameInput.Throwing -= context => ThrowBall();
+        FindInScene.Wheel.Rotating -= SetAngle;
+        FindInScene.Pedal.Pressing -= SetSpeed;
+        FindInScene.BackButton.Backing -= SetSpeed;
+        FindInScene.LaunchButton.Launched -= ThrowBall;
     }
 }

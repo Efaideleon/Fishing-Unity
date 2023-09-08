@@ -14,7 +14,7 @@ public class UIPedalTouchManager :  UITouchManagerBase
     {
         if (_uiPedal.IsTouchingElement(finger.screenPosition))
         {
-            _uiPedal.Accelerate(Vector2.up);
+            _uiPedal.Accelerate(1);
         }
     }
 
@@ -22,7 +22,7 @@ public class UIPedalTouchManager :  UITouchManagerBase
     {
         if (_uiPedal.IsTouchingElement(finger.currentTouch.startScreenPosition))
         {
-            _uiPedal.Accelerate(Vector2.zero);
+            _uiPedal.Accelerate(0);
         }
     }
 }

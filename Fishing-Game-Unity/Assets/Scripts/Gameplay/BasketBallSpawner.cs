@@ -2,8 +2,8 @@ using UnityEngine;
 public class BasketBallSpawner: MonoBehaviour
 {
     [Header("Prefab")]
-    [SerializeField] private BasketBall _basketBallPrefab;
-    private static BasketBall _basketBallInstance;
+    [SerializeField] private ThrowItem _basketBallPrefab;
+    private static ThrowItem _basketBallInstance;
     private Vector3 _basketBallSpawnPosition;
     void Start()
     {
